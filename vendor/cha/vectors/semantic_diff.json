@@ -1,0 +1,4318 @@
+{
+  "abi": "cha-abi/1",
+  "function": "semantic_diff",
+  "cases": [
+    {
+      "name": "identical trees",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "h",
+              "attributes": {
+                "level": 1
+              },
+              "text": "Title"
+            },
+            {
+              "kind": "p",
+              "text": "Body"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "h",
+              "attributes": {
+                "level": 1
+              },
+              "text": "Title"
+            },
+            {
+              "kind": "p",
+              "text": "Body"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": []
+        }
+      }
+    },
+    {
+      "name": "omitted fields equal their defaults",
+      "input": {
+        "old": {
+          "kind": "p"
+        },
+        "new": {
+          "kind": "p",
+          "attributes": {},
+          "text": null,
+          "children": []
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": []
+        }
+      }
+    },
+    {
+      "name": "attribute key order does not matter",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": {
+            "a": {
+              "b": 1,
+              "c": [
+                1,
+                2
+              ]
+            },
+            "z": null
+          }
+        },
+        "new": {
+          "kind": "x",
+          "attributes": {
+            "z": null,
+            "a": {
+              "c": [
+                1,
+                2
+              ],
+              "b": 1
+            }
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": []
+        }
+      }
+    },
+    {
+      "name": "root text edit",
+      "input": {
+        "old": {
+          "kind": "p",
+          "text": "a"
+        },
+        "new": {
+          "kind": "p",
+          "text": "b"
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [],
+              "new_path": [],
+              "old_text": "a",
+              "new_text": "b"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "text edit in a child",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "Hello"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "Hello!"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "old_text": "Hello",
+              "new_text": "Hello!"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "japanese text edit",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "これはペンです"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "これはペンでした"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "old_text": "これはペンです",
+              "new_text": "これはペンでした"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "null text becomes empty text",
+      "input": {
+        "old": {
+          "kind": "p"
+        },
+        "new": {
+          "kind": "p",
+          "text": ""
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [],
+              "new_path": [],
+              "old_text": null,
+              "new_text": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty text becomes null text",
+      "input": {
+        "old": {
+          "kind": "p",
+          "text": ""
+        },
+        "new": {
+          "kind": "p"
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [],
+              "new_path": [],
+              "old_text": "",
+              "new_text": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "text removed",
+      "input": {
+        "old": {
+          "kind": "p",
+          "text": "x"
+        },
+        "new": {
+          "kind": "p"
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [],
+              "new_path": [],
+              "old_text": "x",
+              "new_text": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute add, remove and modify in key order",
+      "input": {
+        "old": {
+          "kind": "h",
+          "attributes": {
+            "a": 1,
+            "lang": "en",
+            "level": 2
+          },
+          "text": "T"
+        },
+        "new": {
+          "kind": "h",
+          "attributes": {
+            "a": 2,
+            "id": "x",
+            "level": 2
+          },
+          "text": "T"
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "h"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "a",
+              "old_value": 1,
+              "new_value": 2
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "id",
+              "new_value": "x"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "lang",
+              "old_value": "en"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute added with a null value",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x",
+          "attributes": {
+            "n": null
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "x"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "n",
+              "new_value": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute with a null value removed",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": {
+            "n": null
+          }
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "x"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "n",
+              "old_value": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute changes type",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": {
+            "v": 1
+          }
+        },
+        "new": {
+          "kind": "x",
+          "attributes": {
+            "v": "1"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "x"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "v",
+              "old_value": 1,
+              "new_value": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute holds a nested value",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": {
+            "v": {
+              "a": [
+                1,
+                2
+              ]
+            }
+          }
+        },
+        "new": {
+          "kind": "x",
+          "attributes": {
+            "v": {
+              "a": [
+                1,
+                3
+              ]
+            }
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "x"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "v",
+              "old_value": {
+                "a": [
+                  1,
+                  2
+                ]
+              },
+              "new_value": {
+                "a": [
+                  1,
+                  3
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute names sort by utf-16 code units",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x",
+          "attributes": {
+            "～": 1,
+            "😀": 2
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "x"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "😀",
+              "new_value": 2
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "～",
+              "new_value": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "attribute and text change together",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "h",
+              "attributes": {
+                "level": 1
+              },
+              "text": "Old"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "h",
+              "attributes": {
+                "level": 2
+              },
+              "text": "New"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "kind": "h"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "name": "level",
+              "old_value": 1,
+              "new_value": 2
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "old_text": "Old",
+              "new_text": "New"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child inserted at the start",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child inserted in the middle",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child inserted at the end",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 2,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                2
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child deleted at the start",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child deleted in the middle",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child deleted at the end",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 2,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                2
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "child added to an empty parent",
+      "input": {
+        "old": {
+          "kind": "doc"
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "last child removed",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc"
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "inserted subtree is reported in pre-order",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "ul",
+              "children": [
+                {
+                  "kind": "li",
+                  "text": "x"
+                },
+                {
+                  "kind": "li",
+                  "text": "y"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "ul"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "ul"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1,
+                0
+              ],
+              "kind": "li"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1,
+                1
+              ],
+              "kind": "li"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "removed subtree is reported in pre-order",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "ul",
+              "children": [
+                {
+                  "kind": "li",
+                  "text": "x"
+                },
+                {
+                  "kind": "li",
+                  "text": "y"
+                }
+              ]
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "ul"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                1
+              ],
+              "kind": "ul"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                1,
+                0
+              ],
+              "kind": "li"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                1,
+                1
+              ],
+              "kind": "li"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "several inserts around an exact match",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "B"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "C"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 2,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                2
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "equal-length gap is paired by position",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "alpha"
+            },
+            {
+              "kind": "p",
+              "text": "beta"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "omega"
+            },
+            {
+              "kind": "p",
+              "text": "zeta"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "old_text": "alpha",
+              "new_text": "omega"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                1
+              ],
+              "new_path": [
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                1
+              ],
+              "new_path": [
+                1
+              ],
+              "old_text": "beta",
+              "new_text": "zeta"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "equal-length gap between exact matches",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "keep"
+            },
+            {
+              "kind": "p",
+              "text": "alpha"
+            },
+            {
+              "kind": "p",
+              "text": "beta"
+            },
+            {
+              "kind": "p",
+              "text": "tail"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "keep"
+            },
+            {
+              "kind": "p",
+              "text": "omega"
+            },
+            {
+              "kind": "p",
+              "text": "zeta"
+            },
+            {
+              "kind": "p",
+              "text": "tail"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                1
+              ],
+              "new_path": [
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                1
+              ],
+              "new_path": [
+                1
+              ],
+              "old_text": "alpha",
+              "new_text": "omega"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                2
+              ],
+              "new_path": [
+                2
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                2
+              ],
+              "new_path": [
+                2
+              ],
+              "old_text": "beta",
+              "new_text": "zeta"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "unequal gap resolved by similarity on japanese text",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "今日は天気がいいです"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "新しい段落です"
+            },
+            {
+              "kind": "p",
+              "text": "今日は天気がとてもいいです"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                1
+              ],
+              "old_text": "今日は天気がいいです",
+              "new_text": "今日は天気がとてもいいです"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "no similar node: removal plus additions",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "aaaa"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "bbbb"
+            },
+            {
+              "kind": "p",
+              "text": "cccc"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "similarity of exactly one half matches",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "abc"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "xyz0"
+            },
+            {
+              "kind": "p",
+              "text": "abd"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                1
+              ],
+              "old_text": "abc",
+              "new_text": "abd"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "similarity below one half does not match",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "abc"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "xyz0"
+            },
+            {
+              "kind": "p",
+              "text": "abde"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "similarity ties go to the lowest index",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "abcd"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "abcdX"
+            },
+            {
+              "kind": "p",
+              "text": "abcdX"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "old_text": "abcd",
+              "new_text": "abcdX"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "the cursor keeps sibling order",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "abcdef"
+            },
+            {
+              "kind": "p",
+              "text": "uvwxyz"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "xxxxx"
+            },
+            {
+              "kind": "p",
+              "text": "uvwxyz!"
+            },
+            {
+              "kind": "p",
+              "text": "abcdef!"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                2
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                2
+              ],
+              "old_text": "abcdef",
+              "new_text": "abcdef!"
+            },
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "a one-character text is a single gram",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "attributes": {
+                "i": 1
+              },
+              "text": "a"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "x"
+            },
+            {
+              "kind": "p",
+              "text": "a"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                1
+              ],
+              "name": "i",
+              "old_value": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty text has no similarity",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "attributes": {
+                "a": 1
+              }
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p"
+            },
+            {
+              "kind": "p",
+              "text": "new"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "similar text of another kind does not match",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "hello world"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "h",
+              "text": "hello world"
+            },
+            {
+              "kind": "li",
+              "text": "x"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "h"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "h"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "li"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "li"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "kind change in an equal-length gap is a removal plus an addition",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "x"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "h",
+              "text": "x"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "h"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "h"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "similarity reads descendant text",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "section",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "quick brown fox jumps"
+                }
+              ]
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "figure",
+              "text": "zzzz"
+            },
+            {
+              "kind": "section",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "quick brown fox leaps"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "figure"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "figure"
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0,
+                0
+              ],
+              "new_path": [
+                1,
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0,
+                0
+              ],
+              "new_path": [
+                1,
+                0
+              ],
+              "old_text": "quick brown fox jumps",
+              "new_text": "quick brown fox leaps"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "swapping two siblings is a removal plus an addition",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "A"
+            },
+            {
+              "kind": "p",
+              "text": "B"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "B"
+            },
+            {
+              "kind": "p",
+              "text": "A"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "p"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "moving an item to another parent is a removal plus an addition",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "ul",
+              "children": [
+                {
+                  "kind": "li",
+                  "text": "x"
+                }
+              ]
+            },
+            {
+              "kind": "ul",
+              "children": []
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "ul",
+              "children": []
+            },
+            {
+              "kind": "ul",
+              "children": [
+                {
+                  "kind": "li",
+                  "text": "x"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "ChildRemoved",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 0,
+              "kind": "ul"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "ul"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0,
+                0
+              ],
+              "kind": "li"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [],
+              "parent_new_path": [],
+              "index": 1,
+              "kind": "ul"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1
+              ],
+              "kind": "ul"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1,
+                0
+              ],
+              "kind": "li"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "nested changes",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "section",
+              "attributes": {
+                "id": "s1"
+              },
+              "children": [
+                {
+                  "kind": "h",
+                  "text": "Intro"
+                },
+                {
+                  "kind": "p",
+                  "text": "text one"
+                },
+                {
+                  "kind": "ul",
+                  "children": [
+                    {
+                      "kind": "li",
+                      "text": "a"
+                    },
+                    {
+                      "kind": "li",
+                      "text": "b"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "p",
+              "text": "footer"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "section",
+              "attributes": {
+                "id": "s1"
+              },
+              "children": [
+                {
+                  "kind": "h",
+                  "text": "Intro"
+                },
+                {
+                  "kind": "p",
+                  "text": "text two"
+                },
+                {
+                  "kind": "ul",
+                  "children": [
+                    {
+                      "kind": "li",
+                      "text": "a"
+                    },
+                    {
+                      "kind": "li",
+                      "text": "b"
+                    },
+                    {
+                      "kind": "li",
+                      "text": "c"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "p",
+              "text": "footer"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0,
+                1
+              ],
+              "new_path": [
+                0,
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0,
+                1
+              ],
+              "new_path": [
+                0,
+                1
+              ],
+              "old_text": "text one",
+              "new_text": "text two"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [
+                0,
+                2
+              ],
+              "parent_new_path": [
+                0,
+                2
+              ],
+              "index": 2,
+              "kind": "li"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0,
+                2,
+                2
+              ],
+              "kind": "li"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "change three levels down",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "a",
+              "children": [
+                {
+                  "kind": "b",
+                  "children": [
+                    {
+                      "kind": "c",
+                      "attributes": {
+                        "k": 1
+                      },
+                      "text": "deep"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "a",
+              "children": [
+                {
+                  "kind": "b",
+                  "children": [
+                    {
+                      "kind": "c",
+                      "attributes": {
+                        "k": 2
+                      },
+                      "text": "deeper"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0,
+                0,
+                0
+              ],
+              "new_path": [
+                0,
+                0,
+                0
+              ],
+              "kind": "c"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [
+                0,
+                0,
+                0
+              ],
+              "new_path": [
+                0,
+                0,
+                0
+              ],
+              "name": "k",
+              "old_value": 1,
+              "new_value": 2
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0,
+                0,
+                0
+              ],
+              "new_path": [
+                0,
+                0,
+                0
+              ],
+              "old_text": "deep",
+              "new_text": "deeper"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "changes in several subtrees",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "s",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "a"
+                },
+                {
+                  "kind": "p",
+                  "text": "b"
+                }
+              ]
+            },
+            {
+              "kind": "s",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "c"
+                }
+              ]
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "s",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "a"
+                },
+                {
+                  "kind": "p",
+                  "text": "b2"
+                }
+              ]
+            },
+            {
+              "kind": "s",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "c"
+                },
+                {
+                  "kind": "p",
+                  "text": "d"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0,
+                1
+              ],
+              "new_path": [
+                0,
+                1
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0,
+                1
+              ],
+              "new_path": [
+                0,
+                1
+              ],
+              "old_text": "b",
+              "new_text": "b2"
+            },
+            {
+              "type": "ChildAdded",
+              "parent_old_path": [
+                1
+              ],
+              "parent_new_path": [
+                1
+              ],
+              "index": 1,
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                1,
+                1
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "change under a matched root with modified own attributes",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "attributes": {
+            "v": 1
+          },
+          "children": [
+            {
+              "kind": "p",
+              "text": "a"
+            }
+          ]
+        },
+        "new": {
+          "kind": "doc",
+          "attributes": {
+            "v": 2
+          },
+          "children": [
+            {
+              "kind": "p",
+              "text": "b"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [],
+              "new_path": [],
+              "kind": "doc"
+            },
+            {
+              "type": "AttributeChanged",
+              "old_path": [],
+              "new_path": [],
+              "name": "v",
+              "old_value": 1,
+              "new_value": 2
+            },
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0
+              ],
+              "new_path": [
+                0
+              ],
+              "old_text": "a",
+              "new_text": "b"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "root kinds differ",
+      "input": {
+        "old": {
+          "kind": "doc",
+          "children": [
+            {
+              "kind": "p",
+              "text": "a"
+            }
+          ]
+        },
+        "new": {
+          "kind": "page",
+          "children": [
+            {
+              "kind": "p",
+              "text": "a"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeRemoved",
+              "path": [],
+              "kind": "doc"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [],
+              "kind": "page"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "p"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "root kinds differ with deeper trees",
+      "input": {
+        "old": {
+          "kind": "a",
+          "children": [
+            {
+              "kind": "b",
+              "children": [
+                {
+                  "kind": "c"
+                }
+              ]
+            },
+            {
+              "kind": "d"
+            }
+          ]
+        },
+        "new": {
+          "kind": "e",
+          "children": [
+            {
+              "kind": "f"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeRemoved",
+              "path": [],
+              "kind": "a"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0
+              ],
+              "kind": "b"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                0,
+                0
+              ],
+              "kind": "c"
+            },
+            {
+              "type": "NodeRemoved",
+              "path": [
+                1
+              ],
+              "kind": "d"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [],
+              "kind": "e"
+            },
+            {
+              "type": "NodeAdded",
+              "path": [
+                0
+              ],
+              "kind": "f"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "depth 48 is accepted",
+      "input": {
+        "old": {
+          "kind": "n",
+          "children": [
+            {
+              "kind": "n",
+              "children": [
+                {
+                  "kind": "n",
+                  "children": [
+                    {
+                      "kind": "n",
+                      "children": [
+                        {
+                          "kind": "n",
+                          "children": [
+                            {
+                              "kind": "n",
+                              "children": [
+                                {
+                                  "kind": "n",
+                                  "children": [
+                                    {
+                                      "kind": "n",
+                                      "children": [
+                                        {
+                                          "kind": "n",
+                                          "children": [
+                                            {
+                                              "kind": "n",
+                                              "children": [
+                                                {
+                                                  "kind": "n",
+                                                  "children": [
+                                                    {
+                                                      "kind": "n",
+                                                      "children": [
+                                                        {
+                                                          "kind": "n",
+                                                          "children": [
+                                                            {
+                                                              "kind": "n",
+                                                              "children": [
+                                                                {
+                                                                  "kind": "n",
+                                                                  "children": [
+                                                                    {
+                                                                      "kind": "n",
+                                                                      "children": [
+                                                                        {
+                                                                          "kind": "n",
+                                                                          "children": [
+                                                                            {
+                                                                              "kind": "n",
+                                                                              "children": [
+                                                                                {
+                                                                                  "kind": "n",
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "kind": "n",
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "kind": "n",
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "kind": "n",
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "kind": "n",
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "kind": "n",
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "kind": "n",
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "kind": "n",
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "kind": "n",
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "kind": "n",
+                                                                                                                      "children": [
+                                                                                                                        {
+                                                                                                                          "kind": "n",
+                                                                                                                          "children": [
+                                                                                                                            {
+                                                                                                                              "kind": "n",
+                                                                                                                              "children": [
+                                                                                                                                {
+                                                                                                                                  "kind": "n",
+                                                                                                                                  "children": [
+                                                                                                                                    {
+                                                                                                                                      "kind": "n",
+                                                                                                                                      "children": [
+                                                                                                                                        {
+                                                                                                                                          "kind": "n",
+                                                                                                                                          "children": [
+                                                                                                                                            {
+                                                                                                                                              "kind": "n",
+                                                                                                                                              "children": [
+                                                                                                                                                {
+                                                                                                                                                  "kind": "n",
+                                                                                                                                                  "children": [
+                                                                                                                                                    {
+                                                                                                                                                      "kind": "n",
+                                                                                                                                                      "children": [
+                                                                                                                                                        {
+                                                                                                                                                          "kind": "n",
+                                                                                                                                                          "children": [
+                                                                                                                                                            {
+                                                                                                                                                              "kind": "n",
+                                                                                                                                                              "children": [
+                                                                                                                                                                {
+                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                  "children": [
+                                                                                                                                                                    {
+                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                      "children": [
+                                                                                                                                                                        {
+                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                          "children": [
+                                                                                                                                                                            {
+                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                              "children": [
+                                                                                                                                                                                {
+                                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                                  "children": [
+                                                                                                                                                                                    {
+                                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                                      "children": [
+                                                                                                                                                                                        {
+                                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                                          "children": [
+                                                                                                                                                                                            {
+                                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                                              "children": [
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                                                  "children": [
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                                                      "children": [
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                                                          "text": "a"
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      ]
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                                }
+                                                                                                                                                                                              ]
+                                                                                                                                                                                            }
+                                                                                                                                                                                          ]
+                                                                                                                                                                                        }
+                                                                                                                                                                                      ]
+                                                                                                                                                                                    }
+                                                                                                                                                                                  ]
+                                                                                                                                                                                }
+                                                                                                                                                                              ]
+                                                                                                                                                                            }
+                                                                                                                                                                          ]
+                                                                                                                                                                        }
+                                                                                                                                                                      ]
+                                                                                                                                                                    }
+                                                                                                                                                                  ]
+                                                                                                                                                                }
+                                                                                                                                                              ]
+                                                                                                                                                            }
+                                                                                                                                                          ]
+                                                                                                                                                        }
+                                                                                                                                                      ]
+                                                                                                                                                    }
+                                                                                                                                                  ]
+                                                                                                                                                }
+                                                                                                                                              ]
+                                                                                                                                            }
+                                                                                                                                          ]
+                                                                                                                                        }
+                                                                                                                                      ]
+                                                                                                                                    }
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "new": {
+          "kind": "n",
+          "children": [
+            {
+              "kind": "n",
+              "children": [
+                {
+                  "kind": "n",
+                  "children": [
+                    {
+                      "kind": "n",
+                      "children": [
+                        {
+                          "kind": "n",
+                          "children": [
+                            {
+                              "kind": "n",
+                              "children": [
+                                {
+                                  "kind": "n",
+                                  "children": [
+                                    {
+                                      "kind": "n",
+                                      "children": [
+                                        {
+                                          "kind": "n",
+                                          "children": [
+                                            {
+                                              "kind": "n",
+                                              "children": [
+                                                {
+                                                  "kind": "n",
+                                                  "children": [
+                                                    {
+                                                      "kind": "n",
+                                                      "children": [
+                                                        {
+                                                          "kind": "n",
+                                                          "children": [
+                                                            {
+                                                              "kind": "n",
+                                                              "children": [
+                                                                {
+                                                                  "kind": "n",
+                                                                  "children": [
+                                                                    {
+                                                                      "kind": "n",
+                                                                      "children": [
+                                                                        {
+                                                                          "kind": "n",
+                                                                          "children": [
+                                                                            {
+                                                                              "kind": "n",
+                                                                              "children": [
+                                                                                {
+                                                                                  "kind": "n",
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "kind": "n",
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "kind": "n",
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "kind": "n",
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "kind": "n",
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "kind": "n",
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "kind": "n",
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "kind": "n",
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "kind": "n",
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "kind": "n",
+                                                                                                                      "children": [
+                                                                                                                        {
+                                                                                                                          "kind": "n",
+                                                                                                                          "children": [
+                                                                                                                            {
+                                                                                                                              "kind": "n",
+                                                                                                                              "children": [
+                                                                                                                                {
+                                                                                                                                  "kind": "n",
+                                                                                                                                  "children": [
+                                                                                                                                    {
+                                                                                                                                      "kind": "n",
+                                                                                                                                      "children": [
+                                                                                                                                        {
+                                                                                                                                          "kind": "n",
+                                                                                                                                          "children": [
+                                                                                                                                            {
+                                                                                                                                              "kind": "n",
+                                                                                                                                              "children": [
+                                                                                                                                                {
+                                                                                                                                                  "kind": "n",
+                                                                                                                                                  "children": [
+                                                                                                                                                    {
+                                                                                                                                                      "kind": "n",
+                                                                                                                                                      "children": [
+                                                                                                                                                        {
+                                                                                                                                                          "kind": "n",
+                                                                                                                                                          "children": [
+                                                                                                                                                            {
+                                                                                                                                                              "kind": "n",
+                                                                                                                                                              "children": [
+                                                                                                                                                                {
+                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                  "children": [
+                                                                                                                                                                    {
+                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                      "children": [
+                                                                                                                                                                        {
+                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                          "children": [
+                                                                                                                                                                            {
+                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                              "children": [
+                                                                                                                                                                                {
+                                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                                  "children": [
+                                                                                                                                                                                    {
+                                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                                      "children": [
+                                                                                                                                                                                        {
+                                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                                          "children": [
+                                                                                                                                                                                            {
+                                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                                              "children": [
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                                                  "children": [
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                                                      "children": [
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                                                          "text": "b"
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      ]
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                                }
+                                                                                                                                                                                              ]
+                                                                                                                                                                                            }
+                                                                                                                                                                                          ]
+                                                                                                                                                                                        }
+                                                                                                                                                                                      ]
+                                                                                                                                                                                    }
+                                                                                                                                                                                  ]
+                                                                                                                                                                                }
+                                                                                                                                                                              ]
+                                                                                                                                                                            }
+                                                                                                                                                                          ]
+                                                                                                                                                                        }
+                                                                                                                                                                      ]
+                                                                                                                                                                    }
+                                                                                                                                                                  ]
+                                                                                                                                                                }
+                                                                                                                                                              ]
+                                                                                                                                                            }
+                                                                                                                                                          ]
+                                                                                                                                                        }
+                                                                                                                                                      ]
+                                                                                                                                                    }
+                                                                                                                                                  ]
+                                                                                                                                                }
+                                                                                                                                              ]
+                                                                                                                                            }
+                                                                                                                                          ]
+                                                                                                                                        }
+                                                                                                                                      ]
+                                                                                                                                    }
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "ok": {
+          "events": [
+            {
+              "type": "NodeModified",
+              "old_path": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "new_path": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "kind": "n"
+            },
+            {
+              "type": "TextChanged",
+              "old_path": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "new_path": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "old_text": "a",
+              "new_text": "b"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "float in an attribute",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": {
+            "v": 1.5
+          }
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "integer above 2^53-1 in an attribute",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": {
+            "v": 9007199254740992
+          }
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "input is not an object",
+      "input": [],
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "missing new",
+      "input": {
+        "old": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "new"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing old",
+      "input": {
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "old"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x"
+        },
+        "options": {}
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "options"
+          }
+        }
+      }
+    },
+    {
+      "name": "old is not an object",
+      "input": {
+        "old": [],
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "old"
+          }
+        }
+      }
+    },
+    {
+      "name": "node without kind",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "text": "a"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "new.kind"
+          }
+        }
+      }
+    },
+    {
+      "name": "node with unknown field",
+      "input": {
+        "old": {
+          "kind": "x",
+          "id": "1"
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "old.id"
+          }
+        }
+      }
+    },
+    {
+      "name": "kind is not a string",
+      "input": {
+        "old": {
+          "kind": 1
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "old.kind"
+          }
+        }
+      }
+    },
+    {
+      "name": "attributes is not an object",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": []
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "old.attributes"
+          }
+        }
+      }
+    },
+    {
+      "name": "attributes is null",
+      "input": {
+        "old": {
+          "kind": "x",
+          "attributes": null
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "old.attributes"
+          }
+        }
+      }
+    },
+    {
+      "name": "text is not a string",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x",
+          "text": 1
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "new.text"
+          }
+        }
+      }
+    },
+    {
+      "name": "children is not an array",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x",
+          "children": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "new.children"
+          }
+        }
+      }
+    },
+    {
+      "name": "nested child is malformed",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x",
+          "children": [
+            {
+              "kind": "y"
+            },
+            {
+              "kind": "y",
+              "text": 3
+            }
+          ]
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "new.children.1.text"
+          }
+        }
+      }
+    },
+    {
+      "name": "empty kind at the root",
+      "input": {
+        "old": {
+          "kind": ""
+        },
+        "new": {
+          "kind": "x"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_TYPED_TREE",
+          "context": {
+            "field": "old"
+          }
+        }
+      }
+    },
+    {
+      "name": "empty kind in a descendant",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "x",
+          "children": [
+            {
+              "kind": "y"
+            },
+            {
+              "kind": "y",
+              "children": [
+                {
+                  "kind": ""
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_TYPED_TREE",
+          "context": {
+            "field": "new.children.1.children.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "depth 49 is rejected",
+      "input": {
+        "old": {
+          "kind": "x"
+        },
+        "new": {
+          "kind": "n",
+          "children": [
+            {
+              "kind": "n",
+              "children": [
+                {
+                  "kind": "n",
+                  "children": [
+                    {
+                      "kind": "n",
+                      "children": [
+                        {
+                          "kind": "n",
+                          "children": [
+                            {
+                              "kind": "n",
+                              "children": [
+                                {
+                                  "kind": "n",
+                                  "children": [
+                                    {
+                                      "kind": "n",
+                                      "children": [
+                                        {
+                                          "kind": "n",
+                                          "children": [
+                                            {
+                                              "kind": "n",
+                                              "children": [
+                                                {
+                                                  "kind": "n",
+                                                  "children": [
+                                                    {
+                                                      "kind": "n",
+                                                      "children": [
+                                                        {
+                                                          "kind": "n",
+                                                          "children": [
+                                                            {
+                                                              "kind": "n",
+                                                              "children": [
+                                                                {
+                                                                  "kind": "n",
+                                                                  "children": [
+                                                                    {
+                                                                      "kind": "n",
+                                                                      "children": [
+                                                                        {
+                                                                          "kind": "n",
+                                                                          "children": [
+                                                                            {
+                                                                              "kind": "n",
+                                                                              "children": [
+                                                                                {
+                                                                                  "kind": "n",
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "kind": "n",
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "kind": "n",
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "kind": "n",
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "kind": "n",
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "kind": "n",
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "kind": "n",
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "kind": "n",
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "kind": "n",
+                                                                                                                  "children": [
+                                                                                                                    {
+                                                                                                                      "kind": "n",
+                                                                                                                      "children": [
+                                                                                                                        {
+                                                                                                                          "kind": "n",
+                                                                                                                          "children": [
+                                                                                                                            {
+                                                                                                                              "kind": "n",
+                                                                                                                              "children": [
+                                                                                                                                {
+                                                                                                                                  "kind": "n",
+                                                                                                                                  "children": [
+                                                                                                                                    {
+                                                                                                                                      "kind": "n",
+                                                                                                                                      "children": [
+                                                                                                                                        {
+                                                                                                                                          "kind": "n",
+                                                                                                                                          "children": [
+                                                                                                                                            {
+                                                                                                                                              "kind": "n",
+                                                                                                                                              "children": [
+                                                                                                                                                {
+                                                                                                                                                  "kind": "n",
+                                                                                                                                                  "children": [
+                                                                                                                                                    {
+                                                                                                                                                      "kind": "n",
+                                                                                                                                                      "children": [
+                                                                                                                                                        {
+                                                                                                                                                          "kind": "n",
+                                                                                                                                                          "children": [
+                                                                                                                                                            {
+                                                                                                                                                              "kind": "n",
+                                                                                                                                                              "children": [
+                                                                                                                                                                {
+                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                  "children": [
+                                                                                                                                                                    {
+                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                      "children": [
+                                                                                                                                                                        {
+                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                          "children": [
+                                                                                                                                                                            {
+                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                              "children": [
+                                                                                                                                                                                {
+                                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                                  "children": [
+                                                                                                                                                                                    {
+                                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                                      "children": [
+                                                                                                                                                                                        {
+                                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                                          "children": [
+                                                                                                                                                                                            {
+                                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                                              "children": [
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  "kind": "n",
+                                                                                                                                                                                                  "children": [
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      "kind": "n",
+                                                                                                                                                                                                      "children": [
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          "kind": "n",
+                                                                                                                                                                                                          "children": [
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              "kind": "n",
+                                                                                                                                                                                                              "text": "a"
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                          ]
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      ]
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  ]
+                                                                                                                                                                                                }
+                                                                                                                                                                                              ]
+                                                                                                                                                                                            }
+                                                                                                                                                                                          ]
+                                                                                                                                                                                        }
+                                                                                                                                                                                      ]
+                                                                                                                                                                                    }
+                                                                                                                                                                                  ]
+                                                                                                                                                                                }
+                                                                                                                                                                              ]
+                                                                                                                                                                            }
+                                                                                                                                                                          ]
+                                                                                                                                                                        }
+                                                                                                                                                                      ]
+                                                                                                                                                                    }
+                                                                                                                                                                  ]
+                                                                                                                                                                }
+                                                                                                                                                              ]
+                                                                                                                                                            }
+                                                                                                                                                          ]
+                                                                                                                                                        }
+                                                                                                                                                      ]
+                                                                                                                                                    }
+                                                                                                                                                  ]
+                                                                                                                                                }
+                                                                                                                                              ]
+                                                                                                                                            }
+                                                                                                                                          ]
+                                                                                                                                        }
+                                                                                                                                      ]
+                                                                                                                                    }
+                                                                                                                                  ]
+                                                                                                                                }
+                                                                                                                              ]
+                                                                                                                            }
+                                                                                                                          ]
+                                                                                                                        }
+                                                                                                                      ]
+                                                                                                                    }
+                                                                                                                  ]
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_TYPED_TREE",
+          "context": {
+            "field": "new.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0.children.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: input errors before typed tree errors",
+      "input": {
+        "old": {
+          "kind": ""
+        },
+        "new": {
+          "text": "a"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "new.kind"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: old is validated before new",
+      "input": {
+        "old": {
+          "kind": "x",
+          "children": [
+            {
+              "kind": ""
+            }
+          ]
+        },
+        "new": {
+          "kind": ""
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_TYPED_TREE",
+          "context": {
+            "field": "old.children.0"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aracha",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "durable_objects": {
+    "bindings": [
+      { "name": "DOCUMENT", "class_name": "DocumentDO" },
+      { "name": "OPERATION_COORDINATOR", "class_name": "OperationCoordinatorDO" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["DocumentDO", "OperationCoordinatorDO"] }
+  ],
+  "r2_buckets": [{ "binding": "BLOBS", "bucket_name": "aracha-blobs" }],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "aracha", "database_id": "570330d5-c8ea-4864-8481-14159952553c", "migrations_dir": "migrations" }
+  ],
+  "queues": {
+    "producers": [{ "binding": "PROJECTION_QUEUE", "queue": "aracha-projection" }],
+    "consumers": [{ "queue": "aracha-projection" }]
+  },
+  "vars": { "FAULT_INJECTION": "0", "WORKSPACE_ID": "0198a3c0-7b1e-7c3a-9d52-4f6e8a1b2c3d" }
+}

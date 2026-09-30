@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aracha</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="col left">
+    <h1>Aracha</h1>
+    <input id="search" type="search" placeholder="Search" autocomplete="off" aria-label="Search documents">
+    <ul id="doc-list" class="doc-list"></ul>
+    <form id="new-form" class="stack">
+      <h2>New document</h2>
+      <input id="new-path" type="text" placeholder="path, e.g. concepts/rust" required aria-label="New document path">
+      <button type="submit">Create</button>
+      <p id="new-error" class="error" hidden></p>
+    </form>
+    <p><a href="/api/export" download>Export (tar)</a></p>
+  </aside>
+
+  <main class="col centre">
+    <header class="doc-header">
+      <h2 id="doc-path">No document open</h2>
+      <span id="conflict-badge" class="badge" hidden>conflicted</span>
+    </header>
+    <textarea id="editor" spellcheck="false" disabled aria-label="Markdown editor"></textarea>
+    <div id="conflict-view" hidden></div>
+    <p id="save-status" class="status" role="status"></p>
+  </main>
+
+  <aside class="col right">
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="history" aria-selected="true">History</button>
+      <button role="tab" data-tab="backlinks" aria-selected="false">Backlinks</button>
+      <button role="tab" data-tab="rename" aria-selected="false">Rename</button>
+    </div>
+    <section id="tab-history" class="tab-panel"></section>
+    <section id="tab-backlinks" class="tab-panel" hidden></section>
+    <section id="tab-rename" class="tab-panel" hidden></section>
+  </aside>
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
