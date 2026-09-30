@@ -3,6 +3,9 @@
   "name": "aracha",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
+  // Cloudflare Access is the auth boundary, so the workers.dev route outside it stays closed.
+  "workers_dev": false,
+  "routes": [{ "pattern": "aracha.chanu.co", "custom_domain": true }],
   "observability": { "enabled": true },
   "assets": {
     "directory": "public",
