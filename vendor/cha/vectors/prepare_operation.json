@@ -1,0 +1,519 @@
+{
+  "abi": "cha-abi/1",
+  "function": "prepare_operation",
+  "cases": [
+    {
+      "name": "single document operation",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "ok": {
+          "operation": {
+            "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+            "actor_id": "alice",
+            "changes": [
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000015",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+              }
+            ]
+          },
+          "multi_document": false
+        }
+      }
+    },
+    {
+      "name": "changes are sorted by document id",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000017",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000d"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000016",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+          }
+        ]
+      },
+      "expect": {
+        "ok": {
+          "operation": {
+            "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+            "actor_id": "alice",
+            "changes": [
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000015",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+              },
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000016",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+              },
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000017",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000d"
+              }
+            ]
+          },
+          "multi_document": true
+        }
+      }
+    },
+    {
+      "name": "two documents",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000016",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "ok": {
+          "operation": {
+            "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+            "actor_id": "alice",
+            "changes": [
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000015",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+              },
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000016",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+              }
+            ]
+          },
+          "multi_document": true
+        }
+      }
+    },
+    {
+      "name": "actor id is opaque",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "user:山田 太郎 <y@example.com>",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "ok": {
+          "operation": {
+            "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+            "actor_id": "user:山田 太郎 <y@example.com>",
+            "changes": [
+              {
+                "document_id": "01890a5d-ac96-7001-8000-000000000015",
+                "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+              }
+            ]
+          },
+          "multi_document": false
+        }
+      }
+    },
+    {
+      "name": "float anywhere",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ],
+        "extra_number": 1.5
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ],
+        "timestamp": 1
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "timestamp"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown field in a change",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "revision": "x"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "changes.0.revision"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing actor id",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing changes",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "changes"
+          }
+        }
+      }
+    },
+    {
+      "name": "changes is not an array",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": {}
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "changes"
+          }
+        }
+      }
+    },
+    {
+      "name": "change missing change id",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000016"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "changes.1.change_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "actor id is not a string",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": 7,
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "operation id malformed",
+      "input": {
+        "operation_id": "op-1",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "operation_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "actor id empty",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "document id malformed",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          },
+          {
+            "document_id": "x",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "changes.1.document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "change id malformed",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "x"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "changes.0.change_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "no changes",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": []
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_OPERATION",
+          "context": {
+            "reason": "empty"
+          }
+        }
+      }
+    },
+    {
+      "name": "same document twice",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_OPERATION",
+          "context": {
+            "reason": "duplicate_document"
+          }
+        }
+      }
+    },
+    {
+      "name": "same change twice",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000016",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_OPERATION",
+          "context": {
+            "reason": "duplicate_change"
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate document is reported before duplicate change",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          },
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_OPERATION",
+          "context": {
+            "reason": "duplicate_document"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: invalid input before invalid id",
+      "input": {
+        "operation_id": "x",
+        "actor_id": "alice",
+        "changes": [
+          {
+            "document_id": "01890a5d-ac96-7001-8000-000000000015",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        ],
+        "extra": 1
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "extra"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: invalid id before operation rules",
+      "input": {
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a",
+        "actor_id": "",
+        "changes": []
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    }
+  ]
+}

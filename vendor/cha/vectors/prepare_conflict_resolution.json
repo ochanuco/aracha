@@ -1,0 +1,1549 @@
+{
+  "abi": "cha-abi/1",
+  "function": "prepare_conflict_resolution",
+  "cases": [
+    {
+      "name": "two heads",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:8fb40c1927ce052b4b5566632580f5eba8705fbf358742f570c7877cb5a2a79b",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "head order does not matter",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:8fb40c1927ce052b4b5566632580f5eba8705fbf358742f570c7877cb5a2a79b",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "three heads",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5",
+            "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000d\",\"content_blob_id\":\"sha256:e0d2747b9ab7abb6eb65e0373fa1b428a28bd6d8a2380106dcc080f58005ee14\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"c\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:a32367e16a3e5868427120e1868b955b66e2268159db13289377cad6c2de5c08",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "three heads in another order",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5",
+            "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000d\",\"content_blob_id\":\"sha256:e0d2747b9ab7abb6eb65e0373fa1b428a28bd6d8a2380106dcc080f58005ee14\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"c\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:a32367e16a3e5868427120e1868b955b66e2268159db13289377cad6c2de5c08",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "attachments are sorted",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [
+          {
+            "attachment_id": "b-figure",
+            "blob_id": "sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45"
+          },
+          {
+            "attachment_id": "a-figure",
+            "blob_id": "sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:cd39b01e4a430c336eb3e5a9a3c2e5ba67b4c1cb241e71debdab8ee85b24dd5b",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"a-figure\",\"blob_id\":\"sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114\"},{\"attachment_id\":\"b-figure\",\"blob_id\":\"sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45\"}],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [
+              {
+                "attachment_id": "a-figure",
+                "blob_id": "sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114"
+              },
+              {
+                "attachment_id": "b-figure",
+                "blob_id": "sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment order does not matter",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [
+          {
+            "attachment_id": "a-figure",
+            "blob_id": "sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114"
+          },
+          {
+            "attachment_id": "b-figure",
+            "blob_id": "sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:cd39b01e4a430c336eb3e5a9a3c2e5ba67b4c1cb241e71debdab8ee85b24dd5b",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"a-figure\",\"blob_id\":\"sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114\"},{\"attachment_id\":\"b-figure\",\"blob_id\":\"sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45\"}],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [
+              {
+                "attachment_id": "a-figure",
+                "blob_id": "sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114"
+              },
+              {
+                "attachment_id": "b-figure",
+                "blob_id": "sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change id affects the resolution id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000012",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:9dc378138424725b34272ab7e732a9812ce473576cd5d83fbb9a83746395e69d",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000012\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000012",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "host state affects the resolution id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "other"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:e55beb8370babf0fd8c9c8b5ccff857dacce2a7644381813504f71348065dddf",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"other\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "other"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone resolution deletes the document",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": null,
+        "attachments": [],
+        "state": {
+          "tombstone": true,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:5f8178a162c6a33763f65e8f7e0d11ef1bfaaff3b90895cf4e151d0da5b7b993",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":null,\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":true}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+            ],
+            "content_blob_id": null,
+            "attachments": [],
+            "state": {
+              "tombstone": true,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "heads may include a tombstone",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:d7832fa2e27238ec0ef2460c46553c33d5d7a8f54f33533cf79cc1f6f6511486",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":null,\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{},\"tombstone\":true}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:5ed42ce3bde654bf0264828cf23ef052cfe604bf816a98e8e67aceb825e72ee0",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-000000000013\",\"content_blob_id\":\"sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d\",\"sha256:d7832fa2e27238ec0ef2460c46553c33d5d7a8f54f33533cf79cc1f6f6511486\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"merged\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000013",
+            "parents": [
+              "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+              "sha256:d7832fa2e27238ec0ef2460c46553c33d5d7a8f54f33533cf79cc1f6f6511486"
+            ],
+            "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "merged"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "actor is rejected as an unknown field",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        },
+        "actor_id": "a"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "timestamp is rejected as an unknown field",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        },
+        "timestamp": 1
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "timestamp"
+          }
+        }
+      }
+    },
+    {
+      "name": "parents cannot be supplied next to heads",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        },
+        "parents": []
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "parents"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing heads",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "heads"
+          }
+        }
+      }
+    },
+    {
+      "name": "head not an object",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          "x",
+          "y"
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "heads.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "head missing canonical",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "heads.1.canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "float in host",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "x": 2.5
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "head revision id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "nope",
+            "canonical": "x"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "heads.1.revision_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "content blob id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:xyz",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "content_blob_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment id empty",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [
+          {
+            "attachment_id": "",
+            "blob_id": "sha256:8e35c2cd3bf6641bdb0e2050b76932cbb2e6034a0ddacc1d9bea82a6ba57f7cf"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "attachments.0.attachment_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "closed change",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "closed"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CHANGE_CLOSED",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-000000000013"
+          }
+        }
+      }
+    },
+    {
+      "name": "no heads",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "one head",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "the same head twice",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 2
+          }
+        }
+      }
+    },
+    {
+      "name": "head from another document",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:8f253eaa5ab4d7026d63a9736a8570cacf6c86fd450a4500516ff197eb0c70c8",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000e\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000002\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"x\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_DOCUMENT",
+          "context": {
+            "field": "heads.1"
+          }
+        }
+      }
+    },
+    {
+      "name": "first failing head wins: document before a later tampered head",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:8f253eaa5ab4d7026d63a9736a8570cacf6c86fd450a4500516ff197eb0c70c8",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000e\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000002\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"x\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_DOCUMENT",
+          "context": {
+            "field": "heads.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "tampered first head",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[], \"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\", \"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\", \"document_id\":\"01890a5d-ac96-7001-8000-000000000001\", \"parents\":[], \"schema\":\"cha.revision/1\", \"state\":{\"host\":{\"path\":\"a\"}, \"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "heads.0.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "head canonical under another id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:54b5bd5887a746f66ada20650ebba47af1e092d7a68ce8f4d1b4bdb3628c9cb5",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "heads.1.canonical",
+            "reason": "id_mismatch"
+          }
+        }
+      }
+    },
+    {
+      "name": "resolution reuses the change id of a head",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000c",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CONFLICT_STATE",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000c"
+          }
+        }
+      }
+    },
+    {
+      "name": "resolution reuses the change id of the first head",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CONFLICT_STATE",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone with content",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": true,
+          "host": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "tombstone_has_content"
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone with attachments",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": null,
+        "attachments": [
+          {
+            "attachment_id": "b-figure",
+            "blob_id": "sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45"
+          },
+          {
+            "attachment_id": "a-figure",
+            "blob_id": "sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114"
+          }
+        ],
+        "state": {
+          "tombstone": true,
+          "host": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "tombstone_has_attachments"
+          }
+        }
+      }
+    },
+    {
+      "name": "live resolution without content",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": null,
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "missing_content"
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate attachment id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [
+          {
+            "attachment_id": "b-figure",
+            "blob_id": "sha256:4cd9b7672d7fbee8fb51fb1e049f690342035f543a8efe734b7b5ffb0c154a45"
+          },
+          {
+            "attachment_id": "b-figure",
+            "blob_id": "sha256:420fce314175df402adbeae3cfbbb85665b72d8b9bc2346f463e32a82f64b114"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "duplicate_attachment"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: closed change before head count",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "closed"
+        },
+        "heads": [],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CHANGE_CLOSED",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-000000000013"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: head count before head verification",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000013",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "x"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "order: head checks before reused change id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:8f253eaa5ab4d7026d63a9736a8570cacf6c86fd450a4500516ff197eb0c70c8",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000e\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000002\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"x\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": "sha256:3f8f09c8e09f712b362183db69f4f061bd948d7a61e7663b585d723602c559b1",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_DOCUMENT",
+          "context": {
+            "field": "heads.1"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: reused change id before revision rules",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "heads": [
+          {
+            "revision_id": "sha256:5366c8c0bad7149c922f13b59cb52f392fd65d9004b883b478702a99437b8d8d",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"a\"},\"tombstone\":false}}"
+          },
+          {
+            "revision_id": "sha256:f08c6ad05eaad966a4c471416e1ec69cf4bd68c24b828b506622fd6d76bcabfc",
+            "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"b\"},\"tombstone\":false}}"
+          }
+        ],
+        "content_blob_id": null,
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "merged"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CONFLICT_STATE",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        }
+      }
+    }
+  ]
+}

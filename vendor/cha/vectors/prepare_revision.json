@@ -1,0 +1,2312 @@
+{
+  "abi": "cha-abi/1",
+  "function": "prepare_revision",
+  "cases": [
+    {
+      "name": "root revision",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "child revision with one parent",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000c",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+        ],
+        "content_blob_id": "sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:ad929b564d4a27616dfe5de2152f8d5ce2117abb6a48ff4edbc4e4e6862c179c",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000c",
+            "parents": [
+              "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+            ],
+            "content_blob_id": "sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change id affects the revision id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000d",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:60cb477a78de39de772e2909ab067c802ada43a035b84c7e567c3cadeb30f349",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000d\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000d",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "document id affects the revision id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000002",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:2caf39da1cf486629b83495cacfc014f13cdaadaad33e0eb345fe1ea68754ada",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000002\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000002",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "host state affects the revision id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/go"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:0358f28eab5a480ee50ab11ab2cf1fd67a6e6b14d62cb47c66c73a3c6be3f6df",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/go\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/go"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "empty host object",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {}
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:84a8c4bbd76800bd462554600f61fabbecd256eb0644f8227d8a8aadf8aa8971",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {}
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "content blob affects the revision id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:d9298a10d1b0735837dc4bd85dac641b0f3cef27a47e5d53a54f2f3f5b2fcffa",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:b3b811a472aae5c72a9d400bc4e225b435c9ab878790f068f8578cbf26623eb6",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:d9298a10d1b0735837dc4bd85dac641b0f3cef27a47e5d53a54f2f3f5b2fcffa\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:d9298a10d1b0735837dc4bd85dac641b0f3cef27a47e5d53a54f2f3f5b2fcffa",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "input key order does not matter",
+      "input": {
+        "state": {
+          "host": {
+            "path": "concepts/rust"
+          },
+          "tombstone": false
+        },
+        "attachments": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "parents": [],
+        "change": {
+          "state": "open",
+          "id": "01890a5d-ac96-7001-8000-00000000000b"
+        },
+        "document_id": "01890a5d-ac96-7001-8000-000000000001"
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "attachments sorted in the output",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          },
+          {
+            "attachment_id": "fig-2",
+            "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+          },
+          {
+            "attachment_id": "appendix",
+            "blob_id": "sha256:8638a81c8bb66188a4f803641610f840a42dcf9b65a0347ffe453af1db7644e2"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:750ec1c030b4bdfca951c9270db76c6999bbf9e6e6a4987eb4b0aa26b8264215",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"appendix\",\"blob_id\":\"sha256:8638a81c8bb66188a4f803641610f840a42dcf9b65a0347ffe453af1db7644e2\"},{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "appendix",
+                "blob_id": "sha256:8638a81c8bb66188a4f803641610f840a42dcf9b65a0347ffe453af1db7644e2"
+              },
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment input order does not matter",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "appendix",
+            "blob_id": "sha256:8638a81c8bb66188a4f803641610f840a42dcf9b65a0347ffe453af1db7644e2"
+          },
+          {
+            "attachment_id": "fig-2",
+            "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+          },
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:750ec1c030b4bdfca951c9270db76c6999bbf9e6e6a4987eb4b0aa26b8264215",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"appendix\",\"blob_id\":\"sha256:8638a81c8bb66188a4f803641610f840a42dcf9b65a0347ffe453af1db7644e2\"},{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "appendix",
+                "blob_id": "sha256:8638a81c8bb66188a4f803641610f840a42dcf9b65a0347ffe453af1db7644e2"
+              },
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "same blob under two attachment ids",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          },
+          {
+            "attachment_id": "fig-copy",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:8d546df4f2f0a3644973a4293bb0cfb1e625ae813d6b71ca4d17d5ecc55b37c7",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-copy\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-copy",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "host keys sort by utf-16 code units, not utf-8 bytes",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "～": 1,
+            "😀": 2,
+            "a": 3
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:c03dbddfe88988d4d9da6d2f55c0ad63400ea72511144714fbbb0d6ba2f20c5e",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"a\":3,\"😀\":2,\"～\":1},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "～": 1,
+                "😀": 2,
+                "a": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment ids sort by utf-16 code units",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "～",
+            "blob_id": "sha256:2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+          },
+          {
+            "attachment_id": "😀",
+            "blob_id": "sha256:a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:92d63c062ef0c327f23fc143ae585c73fbb786d241354e24ddf99b1591e339c9",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"😀\",\"blob_id\":\"sha256:a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa\"},{\"attachment_id\":\"～\",\"blob_id\":\"sha256:2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "😀",
+                "blob_id": "sha256:a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa"
+              },
+              {
+                "attachment_id": "～",
+                "blob_id": "sha256:2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "non-ascii host strings are kept literal and not normalized",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "title": "日本語のタイトル",
+            "path": "概念/ラスト",
+            "tag": "café é",
+            "emoji": "😀"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:fafef6b5caa83457887c3648c95688f6eeb5895af2ca16e701958d7e0265adb8",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"emoji\":\"😀\",\"path\":\"概念/ラスト\",\"tag\":\"café é\",\"title\":\"日本語のタイトル\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "title": "日本語のタイトル",
+                "path": "概念/ラスト",
+                "tag": "café é",
+                "emoji": "😀"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "string escapes follow jcs",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "s": "quote\" back\\ nl\n cr\r tab\t bs\b ff\f nul\u0000 us\u001f del ls "
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:1db64ad5140782608731bf44604014df929222267f2318efe7b00e44fe242993",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"s\":\"quote\\\" back\\\\ nl\\n cr\\r tab\\t bs\\b ff\\f nul\\u0000 us\\u001f del ls \"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "s": "quote\" back\\ nl\n cr\r tab\t bs\b ff\f nul\u0000 us\u001f del ls "
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "nested host values and boundary integers",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "n": [
+              1,
+              -2,
+              0,
+              9007199254740991,
+              -9007199254740991
+            ],
+            "o": {
+              "z": null,
+              "a": [
+                true,
+                false,
+                {}
+              ]
+            },
+            "e": []
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:ec6ca25f96d35465fcd1064a21f26d7dadcd05a24b7508c86aa63693efabaf57",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"e\":[],\"n\":[1,-2,0,9007199254740991,-9007199254740991],\"o\":{\"a\":[true,false,{}],\"z\":null}},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b",
+            "parents": [],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "n": [
+                  1,
+                  -2,
+                  0,
+                  9007199254740991,
+                  -9007199254740991
+                ],
+                "o": {
+                  "z": null,
+                  "a": [
+                    true,
+                    false,
+                    {}
+                  ]
+                },
+                "e": []
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone revision",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000e",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+        ],
+        "content_blob_id": null,
+        "attachments": [],
+        "state": {
+          "tombstone": true,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:50a92cc211e988bfc29b6aa7402cd800510331fd5f3ea3f887bd5e3495268ce5",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000e\",\"content_blob_id\":null,\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\"},\"tombstone\":true}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000e",
+            "parents": [
+              "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+            ],
+            "content_blob_id": null,
+            "attachments": [],
+            "state": {
+              "tombstone": true,
+              "host": {
+                "path": "concepts/rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field actor_id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        },
+        "actor_id": "alice"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field operation_id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        },
+        "operation_id": "01890a5d-ac96-7001-8000-00000000005a"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "operation_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field timestamp",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        },
+        "timestamp": 1700000000
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "timestamp"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field created_at",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        },
+        "created_at": "2024-01-01T00:00:00Z"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "created_at"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown top-level field reason",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        },
+        "reason": "manual"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "reason"
+          }
+        }
+      }
+    },
+    {
+      "name": "change description cannot be supplied",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open",
+          "description": "x"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "change.description"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown field inside state",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {},
+          "updated_at": 1
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "state.updated_at"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown field inside attachment",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039",
+            "size": 3
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "attachments.0.size"
+          }
+        }
+      }
+    },
+    {
+      "name": "float in host",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "x": 1.5
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "exponent number",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "x": 1e+21
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "integer above 2^53-1",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "x": 9007199254740992
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "integer below -(2^53-1)",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "x": [
+              -9007199254740992
+            ]
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "missing document_id",
+      "input": {
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing change",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "change"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing parents",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "parents"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing content_blob_id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "content_blob_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing attachments",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "attachments"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing state",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": []
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "state"
+          }
+        }
+      }
+    },
+    {
+      "name": "input is not an object",
+      "input": [
+        1
+      ],
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": ""
+          }
+        }
+      }
+    },
+    {
+      "name": "parents not an array",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": "x",
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "parents"
+          }
+        }
+      }
+    },
+    {
+      "name": "parent not a string",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          1
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "parents.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "content blob not a string or null",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": 5,
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "content_blob_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "change not an object",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": "x",
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "change"
+          }
+        }
+      }
+    },
+    {
+      "name": "change state unknown",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "OPEN"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "change.state"
+          }
+        }
+      }
+    },
+    {
+      "name": "change state missing",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "change.state"
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment missing blob_id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          },
+          {
+            "attachment_id": "x"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "attachments.1.blob_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "attachments not an array",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": {},
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "attachments"
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone not a boolean",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": "false",
+          "host": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "state.tombstone"
+          }
+        }
+      }
+    },
+    {
+      "name": "host not an object",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": []
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "state.host"
+          }
+        }
+      }
+    },
+    {
+      "name": "host missing",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "state.host"
+          }
+        }
+      }
+    },
+    {
+      "name": "document id uppercase",
+      "input": {
+        "document_id": "01890A5D-AC96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "document id is a v4 uuid",
+      "input": {
+        "document_id": "01890a5d-ac96-474b-bcce-b302099a8057",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "document id has a bad variant",
+      "input": {
+        "document_id": "01890a5d-ac96-774b-cce0-b302099a8057",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "document id without hyphens",
+      "input": {
+        "document_id": "01890a5dac9670018000000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "change id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "nope",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "change.id"
+          }
+        }
+      }
+    },
+    {
+      "name": "parent id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:abc"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "parents.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "parent id uppercase hex",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "parents.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "parent id wrong algorithm",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha1:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "parents.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "content blob id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "content_blob_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment blob id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          },
+          {
+            "attachment_id": "fig-2",
+            "blob_id": "md5:00"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "attachments.1.blob_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "attachment id empty",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "attachments.0.attachment_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "closed change",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "closed"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CHANGE_CLOSED",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        }
+      }
+    },
+    {
+      "name": "two parents belong to conflict resolution",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "sha256:594e519ae499312b29433b7dd8a97ff068defcba9755b6d5d00e84c524d67b06"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 2
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate parents",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 2
+          }
+        }
+      }
+    },
+    {
+      "name": "three parents",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "sha256:a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa",
+          "sha256:594e519ae499312b29433b7dd8a97ff068defcba9755b6d5d00e84c524d67b06"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 3
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone with content",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": true,
+          "host": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "tombstone_has_content"
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone with attachments",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": null,
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          }
+        ],
+        "state": {
+          "tombstone": true,
+          "host": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "tombstone_has_attachments"
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone with content and attachments reports content first",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          }
+        ],
+        "state": {
+          "tombstone": true,
+          "host": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "tombstone_has_content"
+          }
+        }
+      }
+    },
+    {
+      "name": "live revision without content",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": null,
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "missing_content"
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate attachment id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+          },
+          {
+            "attachment_id": "fig-1",
+            "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+          }
+        ],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_REVISION",
+          "context": {
+            "reason": "duplicate_attachment"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: invalid json before everything",
+      "input": {
+        "document_id": "bad",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "x": 0.5
+          }
+        },
+        "extra": 1
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "order: invalid input before invalid id",
+      "input": {
+        "document_id": "bad",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        },
+        "extra": 1
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "extra"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: invalid id before closed change",
+      "input": {
+        "document_id": "bad",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "closed"
+        },
+        "parents": [],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "document_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: closed change before parent set",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "closed"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+        ],
+        "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CHANGE_CLOSED",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000b"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: parent set before revision rules",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000b",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23",
+          "sha256:8f9a6d7f10f9044c404d4a470ed73d10ade31dccb9e2bc52babf90de780e1a23"
+        ],
+        "content_blob_id": null,
+        "attachments": [],
+        "state": {
+          "tombstone": false,
+          "host": {
+            "path": "concepts/rust"
+          }
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 2
+          }
+        }
+      }
+    }
+  ]
+}

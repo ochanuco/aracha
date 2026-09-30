@@ -1,0 +1,1205 @@
+{
+  "abi": "cha-abi/1",
+  "function": "prepare_restore",
+  "cases": [
+    {
+      "name": "restore is a forward revision",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:c8fddbc2de1b1e77a608c71dd32f0978848f054e7031cfa9f8eebd642cb37800",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust",
+                "title": "Rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "host override keeps the current path",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "host": {
+          "path": "concepts/rust-lang",
+          "title": "Rust"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:d516bddb9a3b9417fe515a0a90ecec82cd36700932d55987e9cb1725b36c96e2",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust-lang\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust-lang",
+                "title": "Rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "empty host override is still an override",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "host": {}
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:c66c348ee59f44f42990abc20f8cda99a0489e006d0ac474734e6cde827be11a",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {}
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "non-ascii host override",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "host": {
+          "path": "概念/ラスト"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:7578012b7c29b25f9b120f9f30629e86d5fcb07e374e6868de617c16562f2ca2",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"概念/ラスト\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "概念/ラスト"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "restore over two heads",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685",
+          "sha256:50b0d24a8cc4b056fc2511411216b52fcfb6fcc515bdbdaed0b2e2c1befa959e"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:c362cbd07eebb7134424b7a157631de1e717dc4003b96ca75f22460a9f544b18",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:50b0d24a8cc4b056fc2511411216b52fcfb6fcc515bdbdaed0b2e2c1befa959e\",\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:50b0d24a8cc4b056fc2511411216b52fcfb6fcc515bdbdaed0b2e2c1befa959e",
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust",
+                "title": "Rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "parent order does not matter",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:50b0d24a8cc4b056fc2511411216b52fcfb6fcc515bdbdaed0b2e2c1befa959e",
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:c362cbd07eebb7134424b7a157631de1e717dc4003b96ca75f22460a9f544b18",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:50b0d24a8cc4b056fc2511411216b52fcfb6fcc515bdbdaed0b2e2c1befa959e\",\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:50b0d24a8cc4b056fc2511411216b52fcfb6fcc515bdbdaed0b2e2c1befa959e",
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust",
+                "title": "Rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "target without attachments",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904"
+        ],
+        "target": {
+          "revision_id": "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust-lang\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:d202f9515969ce9641eb3d717c80f00ae0f2b9730bbef12e9d8674a4efb487e7",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000f\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust-lang\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f",
+            "parents": [
+              "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904"
+            ],
+            "content_blob_id": "sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990",
+            "attachments": [],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust-lang",
+                "title": "Rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "change id affects the restored revision id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-000000000010",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "ok": {
+          "revision_id": "sha256:ddbb4129a2c4d212b5a28b9e4c61231a09e2abc38a6f9f01e616823d65f7fbdb",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-000000000010\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {
+            "schema": "cha.revision/1",
+            "document_id": "01890a5d-ac96-7001-8000-000000000001",
+            "change_id": "01890a5d-ac96-7001-8000-000000000010",
+            "parents": [
+              "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+            ],
+            "content_blob_id": "sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe",
+            "attachments": [
+              {
+                "attachment_id": "fig-1",
+                "blob_id": "sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039"
+              },
+              {
+                "attachment_id": "fig-2",
+                "blob_id": "sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7"
+              }
+            ],
+            "state": {
+              "tombstone": false,
+              "host": {
+                "path": "concepts/rust",
+                "title": "Rust"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "tombstone target",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:1a1e24abfd9d08980ba0852e42bc0a1b20146a028aee0da8d746bc27052cd3be",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000d\",\"content_blob_id\":null,\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust-lang\",\"title\":\"Rust\"},\"tombstone\":true}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_RESTORE_TARGET",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "unknown field: restore reason is not part of the revision",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "reason": "undo"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "reason"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown field: actor",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "actor_id": "a"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "actor_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "unknown field in target",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}",
+          "revision": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "target.revision"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing target",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ]
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "target"
+          }
+        }
+      }
+    },
+    {
+      "name": "missing target canonical",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "target.canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "host not an object",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "host": "x"
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_INPUT",
+          "context": {
+            "field": "host"
+          }
+        }
+      }
+    },
+    {
+      "name": "host holds a float",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        },
+        "host": {
+          "x": 0.5
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_JSON",
+          "context": {}
+        }
+      }
+    },
+    {
+      "name": "target revision id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:zz",
+          "canonical": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "target.revision_id"
+          }
+        }
+      }
+    },
+    {
+      "name": "parent id malformed",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "x"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_ID",
+          "context": {
+            "field": "parents.0"
+          }
+        }
+      }
+    },
+    {
+      "name": "closed change",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "closed"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CHANGE_CLOSED",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f"
+          }
+        }
+      }
+    },
+    {
+      "name": "no parents",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate parents",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685",
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 2
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with whitespace",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:59e7641138fec9da0a665f3be1196a7fdb9acba654aec3aa1d0ce503d01a0b02",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\", \"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"}, {\"attachment_id\":\"fig-2\", \"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}], \"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\", \"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\", \"document_id\":\"01890a5d-ac96-7001-8000-000000000001\", \"parents\":[], \"schema\":\"cha.revision/1\", \"state\":{\"host\":{\"path\":\"concepts/rust\", \"title\":\"Rust\"}, \"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with whitespace and the original id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\", \"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"}, {\"attachment_id\":\"fig-2\", \"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}], \"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\", \"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\", \"document_id\":\"01890a5d-ac96-7001-8000-000000000001\", \"parents\":[], \"schema\":\"cha.revision/1\", \"state\":{\"host\":{\"path\":\"concepts/rust\", \"title\":\"Rust\"}, \"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with keys in insertion order",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:75bff77dfe0ed6f56d9de92c400c67bd2facd8319d30c39cae195a65ab73aec1",
+          "canonical": "{\"schema\":\"cha.revision/1\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"parents\":[],\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"state\":{\"tombstone\":false,\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"}}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical is not json",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "not json"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical is empty",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": ""
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with an extra field",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:bf075dfdfc5221c8e61701e98e3f082ed3214f7b7ef0ceb17ad8cc5c126bee64",
+          "canonical": "{\"actor_id\":\"alice\",\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with another schema",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:86e2f6a4bd58b613c9b35185093f8ab7397efa00754545a40123cd3246ef7d00",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/2\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with unsorted parents",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:f2836ece564f10144ba74ccfe710772d50aa70129290c096a6e035662b1216ce",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with unsorted attachments",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:322f766eabdf2d6d68339f5f1c818c710e0a8c1304c3cd55f06bd67ba6b020ee",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"},{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with a float",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:6b86f234dd36ec4b79ffa633cd89b8c132aa31ffa9a98c57c788bc3d33cf646f",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"x\":1.5},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical breaking the tombstone rule",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:1495bae44a38dcaee0cb1e60ab106fd85059442c0c07ace33363c11a250caf70",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":true}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical with a malformed document id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:96b8e0875d799de404403d903f68148b05c4dfad40625160859d10df7e36a8f8",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890A5D-AC96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "canonical of another revision under this id",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000c\",\"content_blob_id\":\"sha256:fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust-lang\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "id_mismatch"
+          }
+        }
+      }
+    },
+    {
+      "name": "revision id that hashes something else",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "id_mismatch"
+          }
+        }
+      }
+    },
+    {
+      "name": "target from another document",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000002",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_DOCUMENT",
+          "context": {
+            "field": "target"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: closed change before parent set",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "closed"
+        },
+        "parents": [],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "{\"attachments\":[{\"attachment_id\":\"fig-1\",\"blob_id\":\"sha256:d7bdd545f09d8a73c2b990337c8211d708a04ccd9748627685e4fc79cc038039\"},{\"attachment_id\":\"fig-2\",\"blob_id\":\"sha256:6987740fb624e3e9943ec5d9ac5519b72cea1b35fb4bde5719df3923a36c08f7\"}],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust\",\"title\":\"Rust\"},\"tombstone\":false}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "CHANGE_CLOSED",
+          "context": {
+            "change_id": "01890a5d-ac96-7001-8000-00000000000f"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: parent set before target verification",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000001",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "not json"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_PARENT_SET",
+          "context": {
+            "count": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "order: verification before document check",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000002",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:a174190bdeddd65da37dabad70f1815782e59a74eaf4a52e141bb190c2d89904",
+          "canonical": "not json"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_CANONICAL_STATE",
+          "context": {
+            "field": "target.canonical",
+            "reason": "not_canonical"
+          }
+        }
+      }
+    },
+    {
+      "name": "order: document check before tombstone check",
+      "input": {
+        "document_id": "01890a5d-ac96-7001-8000-000000000002",
+        "change": {
+          "id": "01890a5d-ac96-7001-8000-00000000000f",
+          "state": "open"
+        },
+        "parents": [
+          "sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685"
+        ],
+        "target": {
+          "revision_id": "sha256:1a1e24abfd9d08980ba0852e42bc0a1b20146a028aee0da8d746bc27052cd3be",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000d\",\"content_blob_id\":null,\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[\"sha256:897bec8564e1c9c6495545cfde24cd492c34805b848112034c4f090f7c27c685\"],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"path\":\"concepts/rust-lang\",\"title\":\"Rust\"},\"tombstone\":true}}"
+        }
+      },
+      "expect": {
+        "error": {
+          "code": "INVALID_DOCUMENT",
+          "context": {
+            "field": "target"
+          }
+        }
+      }
+    }
+  ]
+}
