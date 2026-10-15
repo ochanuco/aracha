@@ -16,7 +16,7 @@ pnpm dev                                       # add `--var FAULT_INJECTION:1` t
 
 ## Deploy
 
-Production is deployed by running the `deploy` GitHub Actions workflow manually with `ref` set to `main` (or a commit SHA on main). It runs `scripts/deploy.sh production` (`wrangler deploy`) after the `production` Environment is approved. D1 migrations are not applied by the deploy; run `pnpm exec wrangler d1 migrations apply aracha --remote` by hand for each PR that adds one.
+Production is deployed by the `deploy` GitHub Actions workflow on every push to `main`. It stops for approval in the `production-approval` Environment only when there is no previous deploy record, when rolling back, or when a change needs a manual step; the `plan` job summary of the run shows what ships and why approval is needed. Run the workflow manually with `ref` set to a commit SHA on main to roll back. It runs `scripts/deploy.sh production` (`wrangler deploy`). D1 migrations are not applied by the deploy; run `pnpm exec wrangler d1 migrations apply aracha --remote` by hand for each PR that adds one.
 
 ## Updating cha
 
