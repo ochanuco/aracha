@@ -660,14 +660,14 @@
         "state": {
           "tombstone": false,
           "host": {
-            "s": "quote\" back\\ nl\n cr\r tab\t bs\b ff\f nul\u0000 us\u001f del ls "
+            "s": "quote\" back\\ nl\n cr\r tab\t bs\b ff\f nul\u0000 us\u001f del ls\u2028"
           }
         }
       },
       "expect": {
         "ok": {
           "revision_id": "sha256:1db64ad5140782608731bf44604014df929222267f2318efe7b00e44fe242993",
-          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"s\":\"quote\\\" back\\\\ nl\\n cr\\r tab\\t bs\\b ff\\f nul\\u0000 us\\u001f del ls \"},\"tombstone\":false}}",
+          "canonical": "{\"attachments\":[],\"change_id\":\"01890a5d-ac96-7001-8000-00000000000b\",\"content_blob_id\":\"sha256:3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe\",\"document_id\":\"01890a5d-ac96-7001-8000-000000000001\",\"parents\":[],\"schema\":\"cha.revision/1\",\"state\":{\"host\":{\"s\":\"quote\\\" back\\\\ nl\\n cr\\r tab\\t bs\\b ff\\f nul\\u0000 us\\u001f del ls\u2028\"},\"tombstone\":false}}",
           "revision": {
             "schema": "cha.revision/1",
             "document_id": "01890a5d-ac96-7001-8000-000000000001",
@@ -678,7 +678,7 @@
             "state": {
               "tombstone": false,
               "host": {
-                "s": "quote\" back\\ nl\n cr\r tab\t bs\b ff\f nul\u0000 us\u001f del ls "
+                "s": "quote\" back\\ nl\n cr\r tab\t bs\b ff\f nul\u0000 us\u001f del ls\u2028"
               }
             }
           }
